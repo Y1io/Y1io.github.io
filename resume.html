@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27150 270 440 470%27%3E%3Crect x=%27150%27 y=%27270%27 width=%27440%27 height=%27470%27 rx=%2790%27 fill=%27%2307080b%27/%3E%3Cpath fill=%27%23eceae4%27 d=%27M197 304H289L404 438L355 489ZM529 468H545V714H490V540H460Z%27/%3E%3Cpath fill=%27%232f5bff%27 d=%27M499 304H545V390L420 520V632L342 714V550L483 408H403Z%27/%3E%3C/svg%3E" />
+<title>Koo Wei Song — Résumé</title>
+<meta name="description" content="Résumé of Koo Wei Song, Business Administration student at Sunway College seeking a 3-month internship from January 2027." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Instrument+Serif:ital@0;1&family=Martian+Mono:wght@300;400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#07080b; --paper:#fbfaf7; --text:#16171b; --dim:#55575e; --rule:#e2e0da;
+  --star:#2f5bff; --desk:#d9d6cf;
+  --display:"Syne",sans-serif; --serif:"Instrument Serif",serif; --mono:"Martian Mono",ui-monospace,monospace; --body:"Inter Tight",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--desk:#0e1016}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--desk)}
+body{font-family:var(--body);color:var(--text);background:var(--desk);-webkit-font-smoothing:antialiased;padding:48px 16px 96px}
+a{color:inherit;text-decoration:none}
+.toolbar{max-width:210mm;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#3f4147}
+@media (prefers-color-scheme:dark){.toolbar{color:#a9a8a3}}
+.toolbar nav{display:flex;gap:18px}
+.toolbar button{all:unset;cursor:pointer;background:var(--star);color:#fff;padding:11px 18px;border-radius:99px;display:inline-flex;gap:10px;align-items:center;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.toolbar button:hover{transform:translateY(-2px)}
+.toolbar button:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+
+/* A4 sheet */
+.sheet{position:relative;width:210mm;min-height:297mm;margin:0 auto;background:var(--paper);display:grid;grid-template-columns:64mm 1fr;box-shadow:0 30px 80px -30px rgba(0,0,0,.35);overflow:hidden}
+.side{background:var(--ink);color:#eceae4;padding:13mm 8mm 12mm 10mm;display:flex;flex-direction:column;gap:9mm;position:relative}
+.side .mark{width:20mm;height:24mm}
+.side .mark path{fill:#eceae4}.side .mark path.pb{fill:var(--star)}
+.side h2{font-family:var(--mono);font-size:8.3pt;letter-spacing:.12em;text-transform:uppercase;color:#8f93a6;font-weight:400;margin-bottom:3mm;display:flex;align-items:center;gap:2mm}
+.side h2::before{content:"";width:2.2mm;height:2.2mm;background:var(--star);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.side p,.side li{font-size:8.6pt;line-height:1.5}
+.side ul{list-style:none;display:flex;flex-direction:column;gap:1.2mm}
+.side .contact li a,.side .contact li span{display:block;word-break:break-word}
+.side .contact small{display:block;font-family:var(--mono);font-size:8.3pt;color:#8f93a6;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4mm}
+.side .group + .group{margin-top:3mm}
+.side .group b{display:block;font-family:var(--mono);font-size:8.3pt;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#7c9bff;margin-bottom:1mm}
+.lang{display:flex;flex-direction:column;gap:1.4mm}
+.lang span{font-family:var(--serif);font-style:italic;font-size:13pt;line-height:1.1}
+.avail{margin-top:auto;border-top:1px solid rgba(236,234,228,.18);padding-top:5mm}
+.avail strong{display:block;font-family:var(--display);font-size:20pt;font-weight:700;letter-spacing:-.03em;line-height:.95;margin-top:2mm}
+.avail strong em{font-family:var(--serif);font-weight:400;color:#7c9bff}
+
+.main{padding:13mm 12mm 12mm 11mm;display:flex;flex-direction:column}
+.name{font-family:var(--display);font-size:38pt;line-height:.86;letter-spacing:-.045em;font-weight:700;text-transform:uppercase}
+.name .ch{display:inline-block}
+.role{margin-top:4mm;display:flex;align-items:baseline;gap:3mm;flex-wrap:wrap}
+.role .serif{font-family:var(--serif);font-style:italic;font-size:16pt;color:var(--star)}
+.role .mono{font-family:var(--mono);font-size:8.3pt;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.summary{font-size:9.6pt;line-height:1.6;margin-top:6mm;padding-top:5mm;border-top:1.5px solid var(--text)}
+.sec{margin-top:7mm}
+.sec > h3{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:8.3pt;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:400;padding-bottom:2mm;border-bottom:1px solid var(--rule);margin-bottom:3.5mm}
+.sec > h3 span:last-child{color:var(--star)}
+.item{display:grid;grid-template-columns:1fr auto;column-gap:4mm;padding:2.6mm 0;border-bottom:1px solid var(--rule);break-inside:avoid}
+.item:last-child{border-bottom:0}
+.item h4{font-family:var(--display);font-size:11.6pt;letter-spacing:-.02em;font-weight:700;line-height:1.15}
+.item h4 small{font-family:var(--serif);font-style:italic;font-weight:400;font-size:10.6pt;letter-spacing:0;color:var(--dim);margin-left:1.5mm}
+.item .tag{font-family:var(--mono);font-size:8.3pt;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);white-space:nowrap;padding-top:1mm}
+.item ul{grid-column:1/-1;list-style:none;margin-top:1.4mm;display:flex;flex-direction:column;gap:.6mm}
+.item li{font-size:8.8pt;line-height:1.48;padding-left:4mm;position:relative}
+.item li::before{content:"";position:absolute;left:0;top:.62em;width:1.8mm;height:1px;background:var(--star)}
+.item .tech{grid-column:1/-1;font-family:var(--mono);font-size:8.3pt;letter-spacing:.04em;color:var(--dim);margin-top:1.4mm}
+.foot{margin-top:auto;padding-top:6mm;display:flex;justify-content:space-between;font-family:var(--mono);font-size:8.3pt;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+
+/* entrance */
+@media screen and (prefers-reduced-motion:no-preference){
+  .sheet{animation:sheetIn 1.1s cubic-bezier(.16,1,.3,1) both}
+  .name .ch{animation:rise .9s cubic-bezier(.16,1,.3,1) both}
+  .reveal{animation:fade .9s cubic-bezier(.16,1,.3,1) both}
+}
+@keyframes sheetIn{from{opacity:0;transform:translateY(40px) rotate(-.6deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(60%)}}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+
+@media (max-width:860px){
+  body{padding:20px 0 60px}
+  .toolbar{padding:0 16px}
+  .sheet{width:100%;min-height:0;grid-template-columns:1fr}
+  .side{order:2}
+  .main{padding:28px 16px}
+  .name{font-size:44px}
+}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff;padding:0}
+  .toolbar{display:none}
+  .sheet{box-shadow:none;width:210mm;height:297mm;min-height:0;grid-template-columns:64mm 1fr}
+  .side{order:0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <nav><a href="index.html">← Portfolio</a><a href="deck.html">Deck</a></nav>
+  <button type="button" onclick="print()">↓ Save as PDF</button>
+</div>
+
+<article class="sheet" aria-label="Résumé of Koo Wei Song">
+  <aside class="side">
+    <svg class="mark" viewBox="190 296 362 424" aria-label="Y1io mark"><path d="M197 304H289L404 438L355 489Z"/><path class="pb" d="M499 304H545V390L420 520V632L342 714V550L483 408H403Z"/><path d="M529 468H545V714H490V540H460Z"/></svg>
+
+    <section class="contact reveal" style="animation-delay:.25s">
+      <h2>Contact</h2>
+      <ul>
+        <li><small>Email</small><a href="mailto:kooweisong@gmail.com">kooweisong@gmail.com</a></li>
+        
+        <li><small>Portfolio</small><a href="https://y1io.github.io/">y1io.github.io</a></li>
+      </ul>
+    </section>
+
+    <section class="reveal" style="animation-delay:.32s">
+      <h2>Skills</h2>
+      <div class="group"><b>Business &amp; productivity</b><p>Microsoft Excel, Word, PowerPoint (basic), Obsidian</p></div>
+      <div class="group"><b>Design, video &amp; audio</b><p>Canva, CapCut, Remotion, ComfyUI, GPT-SoVITS</p></div>
+      <div class="group"><b>3D &amp; interactive</b><p>Blender, Three.js, Roblox Studio, Godot</p></div>
+      <div class="group"><b>AI &amp; development</b><p>Claude, OpenAI Codex, Gemini, DeepSeek, Antigravity, VS Code</p></div>
+      <div class="group"><b>Web technologies</b><p>HTML, CSS, JavaScript, TypeScript, React, Vite, WebGL, GSAP, Anime.js, Tailwind CSS</p></div>
+    </section>
+
+    <section class="reveal" style="animation-delay:.39s">
+      <h2>Languages</h2>
+      <div class="lang"><span>Chinese</span><span>English</span><span>Malay</span></div>
+    </section>
+
+    <section class="avail reveal" style="animation-delay:.46s">
+      <h2>Availability</h2>
+      <strong>Jan 2027<br/><em>3 months</em></strong>
+    </section>
+  </aside>
+
+  <div class="main">
+    <h1 class="name" aria-label="Koo Wei Song"><span data-split>Koo Wei</span><br/><span data-split>Song</span></h1>
+    <div class="role reveal" style="animation-delay:.3s"><span class="serif">Business Administration Student</span><span class="mono">3D web · Video · Digital tools</span></div>
+
+    <p class="summary reveal" style="animation-delay:.38s">Business Administration student at Sunway College (Semester 5) with a hands-on interest in digital tools, video creation and 3D projects. I build interactive web prototypes, small 3D games and product explainer videos — from an e-commerce checkout journey to a drone you can take apart and fly — and I'm seeking a 3-month internship from January 2027 to apply my studies and gain practical experience.</p>
+
+    <section class="sec reveal" style="animation-delay:.46s">
+      <h3><span>Education</span><span>01</span></h3>
+      <div class="item">
+        <h4>Diploma in Business Administration</h4><span class="tag">In progress · Sem 5</span>
+        <ul><li>Sunway College, Malaysia</li></ul>
+      </div>
+    </section>
+
+    <section class="sec reveal" style="animation-delay:.54s">
+      <h3><span>Selected projects</span><span>02</span></h3>
+      <div class="item">
+        <h4>SportZone <small>e-commerce journey prototype</small></h4><span class="tag">Web · UX</span>
+        <ul><li>Designed a full shopping flow: product search, cart, checkout, delivery-or-collection choice and simulated order updates.</li></ul>
+        <div class="tech">HTML · CSS · JavaScript · Tailwind CSS</div>
+      </div>
+      <div class="item">
+        <h4>Ezliiv <small>3D product review + explainer film</small></h4><span class="tag">3D · Video</span>
+        <ul><li>Built an interactive trolley model for client review: exploded, cut-away and moving-part views, labelled components, GLB export.</li><li>Turned it into a 40-second, 8-chapter 1080p product explainer with motion typography.</li></ul>
+        <div class="tech">Three.js · JavaScript · GLB · Video editing</div>
+      </div>
+      <div class="item">
+        <h4>AIR 3S Aero Lab <small>drone anatomy &amp; flight explorer</small></h4><span class="tag">3D · GLSL</span>
+        <ul><li>Code-generated drone model with custom GLSL surfaces, layer-by-layer explode, part focus and a WASD flight demo.</li></ul>
+        <div class="tech">Three.js · GLSL · JavaScript</div>
+      </div>
+      <div class="item">
+        <h4>JeskoStudio <small>3D vehicle showroom &amp; customiser</small></h4><span class="tag">3D · Product</span>
+        <ul><li>Material, lighting and camera controls, GLB import/export, hotspots and a visual wind-tunnel mode.</li></ul>
+        <div class="tech">Three.js · JavaScript · GLB (third-party vehicle model)</div>
+      </div>
+      <div class="item">
+        <h4>Pocket Universe <small>3D mini-game</small></h4><span class="tag">Game · 3D</span>
+        <ul><li>Small exploration game across six themed planets: spherical walking, landmarks, procedural audio, desktop and touch controls.</li></ul>
+        <div class="tech">React · TypeScript · Three.js</div>
+      </div>
+      <div class="item">
+        <h4>Fogong Temple Pagoda <small>architectural 3D study</small></h4><span class="tag">3D · WebGL</span>
+        <ul><li>Procedural pagoda with orbit/first-person views, camera presets, day/night and fog.</li></ul>
+        <div class="tech">Three.js · WebGL — conceptual study</div>
+      </div>
+    </section>
+
+    <div class="foot"><span>Koo Wei Song · Y1io</span><span>Résumé · 2026</span></div>
+  </div>
+</article>
+
+<script>
+document.querySelectorAll('[data-split]').forEach(el => {
+  const t = el.textContent; el.textContent = '';
+  [...t].forEach((c, i) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c; s.style.animationDelay = (0.15 + i * 0.03) + 's'; el.appendChild(s); });
+});
+</script>
+</body>
+</html>

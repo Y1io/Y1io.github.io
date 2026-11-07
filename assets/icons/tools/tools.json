@@ -1,0 +1,176 @@
+[
+ {
+  "id": "excel",
+  "name": "Excel",
+  "cat": "business",
+  "monogram": true
+ },
+ {
+  "id": "word",
+  "name": "Word",
+  "cat": "business",
+  "monogram": true
+ },
+ {
+  "id": "powerpoint",
+  "name": "PowerPoint",
+  "cat": "business",
+  "monogram": true
+ },
+ {
+  "id": "obsidian",
+  "name": "Obsidian",
+  "cat": "business",
+  "monogram": false
+ },
+ {
+  "id": "canva",
+  "name": "Canva",
+  "cat": "design",
+  "monogram": false
+ },
+ {
+  "id": "capcut",
+  "name": "CapCut",
+  "cat": "design",
+  "monogram": true
+ },
+ {
+  "id": "remotion",
+  "name": "Remotion",
+  "cat": "design",
+  "monogram": true
+ },
+ {
+  "id": "comfyui",
+  "name": "ComfyUI",
+  "cat": "design",
+  "monogram": false
+ },
+ {
+  "id": "gptsovits",
+  "name": "GPT-SoVITS",
+  "cat": "design",
+  "monogram": true
+ },
+ {
+  "id": "blender",
+  "name": "Blender",
+  "cat": "3d",
+  "monogram": false
+ },
+ {
+  "id": "threejs",
+  "name": "Three.js",
+  "cat": "3d",
+  "monogram": false
+ },
+ {
+  "id": "roblox",
+  "name": "Roblox Studio",
+  "cat": "3d",
+  "monogram": false
+ },
+ {
+  "id": "godot",
+  "name": "Godot",
+  "cat": "3d",
+  "monogram": false
+ },
+ {
+  "id": "claude",
+  "name": "Claude",
+  "cat": "ai",
+  "monogram": false
+ },
+ {
+  "id": "codex",
+  "name": "OpenAI Codex",
+  "cat": "ai",
+  "monogram": false
+ },
+ {
+  "id": "gemini",
+  "name": "Gemini",
+  "cat": "ai",
+  "monogram": false
+ },
+ {
+  "id": "deepseek",
+  "name": "DeepSeek",
+  "cat": "ai",
+  "monogram": false
+ },
+ {
+  "id": "antigravity",
+  "name": "Antigravity",
+  "cat": "ai",
+  "monogram": true
+ },
+ {
+  "id": "vscode",
+  "name": "VS Code",
+  "cat": "ai",
+  "monogram": false
+ },
+ {
+  "id": "html",
+  "name": "HTML",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "css",
+  "name": "CSS",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "javascript",
+  "name": "JavaScript",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "typescript",
+  "name": "TypeScript",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "react",
+  "name": "React",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "vite",
+  "name": "Vite",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "webgl",
+  "name": "WebGL",
+  "cat": "web",
+  "monogram": false
+ },
+ {
+  "id": "gsap",
+  "name": "GSAP",
+  "cat": "web",
+  "monogram": true
+ },
+ {
+  "id": "animejs",
+  "name": "Anime.js",
+  "cat": "web",
+  "monogram": true
+ },
+ {
+  "id": "tailwind",
+  "name": "Tailwind CSS",
+  "cat": "web",
+  "monogram": false
+ }
+]

@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Y1io — Creative Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Noto+Sans+JP:wght@500&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #EDEBE6;
+      --sheet: #F4F2ED;
+      --ink: #141414;
+      --muted: #6D6A63;
+      --cobalt: #1F3FB0;
+      --rule: rgba(20, 20, 20, .9);
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --H: min(46vh, 31vw);
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --H: min(60vw, 40svh);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (pointer: fine) {
+      html, body, button, a {
+        cursor: none !important;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      text-align: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Label System */
+    .lbl {
+      font-family: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 10.5px;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 21px;
+      padding: 0 8px;
+      border: 1px solid var(--rule);
+    }
+
+    /* Paper Grain Overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+      background-repeat: repeat;
+      background-size: 220px 220px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .42 0 0 0 0 .38 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Hidden Probe for Measuring --H */
+    .probe {
+      position: fixed;
+      top: -9999px;
+      left: -9999px;
+      width: 0;
+      height: var(--H);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    /* 1. Top Bar */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 84px;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .topbar-left {
+      justify-self: start;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      color: var(--cobalt);
+      justify-self: center;
+    }
+
+    .logo-zh {
+      font-family: "Newsreader", "Noto Serif SC", Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .logo-en {
+      font-family: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 9px;
+      line-height: 1;
+      letter-spacing: 0.34em;
+      padding-left: 0.34em;
+    }
+
+    .topbar-right {
+      justify-self: end;
+    }
+
+    /* 2. Decade Tabs */
+    .tabs {
+      position: fixed;
+      left: 50%;
+      top: calc(50% - var(--H) / 2 - 86px);
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .tab-ind {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 23px;
+      background-color: var(--cobalt);
+      transition: width 0.6s var(--ease), transform 0.6s var(--ease);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .tab-btn {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 23px;
+      padding: 0 11px;
+      border: 1px solid var(--rule);
+      white-space: nowrap;
+      transition: color 0.45s var(--ease);
+    }
+
+    .tab-btn + .tab-btn {
+      margin-left: -1px;
+    }
+
+    .tab-btn.active {
+      color: #FFFFFF;
+    }
+
+    /* 3. The Shelf (3D Stage) */
+    .shelf {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      top: calc(50% - var(--H) / 2 - 40px);
+      height: calc(var(--H) + 80px);
+      perspective: 2200px;
+      perspective-origin: 50% 50%;
+      touch-action: pan-y;
+      z-index: 10;
+    }
+
+    .stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+
+    .tape {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .face {
+      position: absolute;
+      height: var(--H);
+      top: calc(var(--H) / -2);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 2px;
+      background-repeat: no-repeat;
+    }
+
+    .face::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #000000;
+      opacity: var(--shade, 0);
+      pointer-events: none;
+      border-radius: 2px;
+    }
+
+    .sp {
+      width: var(--ws);
+      left: calc(var(--ws) / -2);
+      transform: translateZ(calc(var(--d) / 2));
+    }
+
+    .cv {
+      width: var(--d);
+      left: calc(var(--d) / -2);
+      transform: rotateY(90deg) translateZ(calc(var(--ws) / 2));
+      box-shadow: 0 30px 60px -28px rgba(20, 16, 10, .55);
+    }
+
+    /* 4. Play Ring */
+    .play-ring {
+      position: fixed;
+      width: 42px;
+      height: 42px;
+      margin-left: -21px;
+      margin-top: -21px;
+      border-radius: 50%;
+      border: 1px solid var(--cobalt);
+      color: var(--cobalt);
+      background-color: rgba(237, 235, 230, .75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 25;
+      will-change: transform;
+      transform: scale(0);
+    }
+
+    .play-ring svg {
+      width: 12px;
+      height: 12px;
+      margin-left: 2px;
+      fill: currentColor;
+      display: block;
+    }
+
+    /* 5. Caption */
+    .caption {
+      position: fixed;
+      left: 50%;
+      top: calc(50% + var(--H) / 2 + 30px);
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .cap-mask {
+      position: relative;
+      overflow: hidden;
+      width: min(92vw, 760px);
+      text-align: center;
+    }
+
+    .cap-mask > span {
+      display: block;
+      width: 100%;
+      will-change: transform;
+    }
+
+    .cap-mask > span:not(:first-child) {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .cap-title {
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 400;
+      font-size: 31px;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+
+    .cap-sub {
+      color: var(--cobalt);
+      font-weight: 500;
+    }
+
+    .cap-year {
+      font-family: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+    }
+
+    /* 6. Arrows */
+    .arrow-btn {
+      position: fixed;
+      top: calc(50% + var(--H) / 2 + 40px);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      z-index: 25;
+    }
+
+    .arrow-prev {
+      left: 20px;
+    }
+
+    .arrow-next {
+      right: 20px;
+    }
+
+    .arrow-btn svg {
+      width: 18px;
+      height: 10px;
+      stroke: currentColor;
+      stroke-width: 1.2px;
+      fill: none;
+      display: block;
+    }
+
+    /* 7. Footer */
+    .footer {
+      position: fixed;
+      left: 32px;
+      right: 32px;
+      bottom: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+    }
+
+    /* 8. Custom Cursor */
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 58px;
+      height: 58px;
+      margin-left: -29px;
+      margin-top: -29px;
+      z-index: 100;
+      pointer-events: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+    }
+
+    @media (pointer: fine) {
+      .cursor {
+        display: flex;
+      }
+    }
+
+    .cursor-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid var(--ink);
+      background-color: transparent;
+      transform: scale(1);
+      transition: transform 0.5s var(--ease), background-color 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .cursor-dot {
+      position: relative;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--ink);
+      transform: scale(1);
+      transition: transform 0.4s var(--ease);
+    }
+
+    .cursor-lbl {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 1.25;
+      letter-spacing: 0.1em;
+      color: #FFFFFF;
+      text-align: center;
+      transform: scale(0);
+      transition: transform 0.45s var(--ease);
+    }
+
+    .cursor.spine .cursor-ring {
+      transform: scale(0.72);
+    }
+    .cursor.spine .cursor-dot {
+      transform: scale(1);
+    }
+    .cursor.spine .cursor-lbl {
+      transform: scale(0);
+    }
+
+    .cursor.btn .cursor-ring {
+      transform: scale(0.55);
+    }
+    .cursor.btn .cursor-dot {
+      transform: scale(0);
+    }
+    .cursor.btn .cursor-lbl {
+      transform: scale(0);
+    }
+
+    .cursor.open .cursor-ring {
+      transform: scale(1.75);
+      background-color: var(--cobalt);
+      border-color: var(--cobalt);
+    }
+    .cursor.open .cursor-dot {
+      transform: scale(0);
+    }
+    .cursor.open .cursor-lbl {
+      transform: scale(1);
+    }
+
+    /* 9. Detail Dialog */
+    .detail {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background-color: var(--sheet);
+      visibility: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4vw;
+      padding: 110px 6vw 56px 7vw;
+      align-items: center;
+      will-change: clip-path, transform;
+    }
+
+    .detail-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .detail-close {
+      position: absolute;
+      left: 32px;
+      top: 31px;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .detail-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 520px;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .d-mask {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .d-line {
+      display: block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+
+    .d-sub {
+      color: var(--cobalt);
+    }
+
+    .d-title {
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(44px, 5.4vw, 84px);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      padding-bottom: 0.06em;
+    }
+
+    .d-meta {
+      color: var(--muted);
+    }
+
+    .d-syn {
+      font-family: "Newsreader", Georgia, serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.5;
+      max-width: 42ch;
+    }
+
+    .d-cred {
+      font-family: "Newsreader", Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .d-watch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 20px;
+      margin-top: 10px;
+      border: 1px solid var(--cobalt);
+      color: var(--cobalt);
+    }
+
+    .detail-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .poster-svg {
+      height: min(100%, 78vh);
+      aspect-ratio: 474 / 900;
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Responsive (<= 767px) */
+    @media (max-width: 767px) {
+      .lbl {
+        font-size: 9px;
+      }
+
+      .topbar {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      .logo-zh {
+        font-size: 17px;
+      }
+
+      .logo-en {
+        font-size: 7.5px;
+      }
+
+      .topbar-right {
+        display: none;
+      }
+
+      .tabs {
+        top: calc(50% - var(--H) / 2 - 70px);
+      }
+
+      .tab-btn {
+        padding: 0 7px;
+        font-size: 9px;
+      }
+
+      .cap-title {
+        font-size: 24px;
+      }
+
+      .arrow-prev {
+        left: 6px;
+      }
+
+      .arrow-next {
+        right: 6px;
+      }
+
+      .footer {
+        left: 16px;
+        right: 16px;
+        bottom: 18px;
+      }
+
+      .detail {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        padding: 84px 22px 40px;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .detail-top {
+        height: 64px;
+      }
+
+      .detail-close {
+        left: 16px;
+        top: 21px;
+      }
+
+      .detail-right {
+        order: -1;
+        height: auto;
+        flex-shrink: 0;
+      }
+
+      .poster-svg {
+        height: 46svh;
+      }
+
+      .detail-left {
+        max-width: 100%;
+      }
+
+      .d-title {
+        font-size: 42px;
+      }
+
+      .d-syn {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden measurement probe for --H -->
+  <div class="probe" id="probe" aria-hidden="true"></div>
+
+  <!-- Paper Grain Layer -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- 1. Top Bar -->
+  <header class="topbar">
+    <a href="#index" class="lbl box topbar-left" data-btn>INDEX / 目录</a>
+    <div class="logo">
+      <span class="logo-zh">Y1io</span>
+      <span class="logo-en">CREATIVE ARCHIVE</span>
+    </div>
+    <div class="lbl topbar-right">ARCHIVE / 作品集</div>
+  </header>
+
+  <!-- 2. Category Tabs -->
+  <nav class="tabs" aria-label="Categories" id="tabs">
+    <div class="tab-ind" id="tabInd"></div>
+    <button type="button" class="lbl tab-btn" data-decade="all" data-btn>ALL / 全部</button>
+    <button type="button" class="lbl tab-btn" data-decade="WEBGL" data-btn>WEBGL / 3D</button>
+    <button type="button" class="lbl tab-btn" data-decade="DESIGN" data-btn>DESIGN / 视觉</button>
+    <button type="button" class="lbl tab-btn" data-decade="CONCEPT" data-btn>CONCEPT / 企划</button>
+    <button type="button" class="lbl tab-btn" data-decade="ARCHIVE" data-btn>ARCHIVE / 待定</button>
+  </nav>
+
+  <!-- 3. The Shelf (3D Stage) -->
+  <section class="shelf" id="shelf" aria-label="Filmography shelf">
+    <div class="stage" id="stage"></div>
+  </section>
+
+  <!-- 4. Play Ring -->
+  <button type="button" class="play-ring" id="playRing" aria-label="Open film" data-btn>
+    <svg viewBox="0 0 12 12" aria-hidden="true">
+      <polygon points="2,1 11,6 2,11" />
+    </svg>
+  </button>
+
+  <!-- 5. Caption -->
+  <div class="caption" aria-live="polite" id="caption">
+    <div class="cap-mask cap-title" id="capTitle"></div>
+    <div class="cap-mask lbl cap-sub" id="capSub"></div>
+    <div class="cap-mask cap-year" id="capYear"></div>
+  </div>
+
+  <!-- 6. Arrows -->
+  <button type="button" class="arrow-btn arrow-prev" id="prevBtn" aria-label="Previous film" data-btn>
+    <svg viewBox="0 0 18 10" aria-hidden="true">
+      <path d="M5 1 L1 5 L5 9 M1 5 L17 5" />
+    </svg>
+  </button>
+  <button type="button" class="arrow-btn arrow-next" id="nextBtn" aria-label="Next film" data-btn>
+    <svg viewBox="0 0 18 10" aria-hidden="true">
+      <path d="M13 1 L17 5 L13 9 M17 5 L1 5" />
+    </svg>
+  </button>
+
+  <!-- 7. Footer -->
+  <footer class="footer">
+    <div class="lbl">© 2026 Y1io. ALL RIGHTS RESERVED.</div>
+    <div class="lbl">Y1IO STUDIO / 個人作品集</div>
+  </footer>
+
+  <!-- 8. Detail Dialog -->
+  <div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <button type="button" class="lbl box detail-close" id="closeBtn" data-btn>CLOSE / 閉じる</button>
+    <div class="detail-top" aria-hidden="true">
+      <div class="logo">
+        <span class="logo-zh">Y1io</span>
+        <span class="logo-en">CREATIVE ARCHIVE</span>
+      </div>
+    </div>
+
+    <div class="detail-left">
+      <div class="d-mask">
+        <p class="d-line d-Syn" id="dSyn"></p>
+      </div>
+      <div class="d-mask">
+        <p class="d-line d-cred">Created &amp; curated by Y1io. 个人作品集</p>
+      </div>
+      <div class="d-mask">
+        <span class="d-line">
+          <button type="button" class="lbl d-watch" id="watchBtn" data-btn>EXPLORE PROJECT / 查看项目</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="detail-right">
+      <svg class="poster-svg" viewBox="0 0 474 900" aria-hidden="true">
+        <defs>
+          <clipPath id="posterClip">
+            <rect x="0" y="0" width="474" height="900" rx="2" ry="2" />
+          </clipPath>
+          <filter id="inkFilter" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="120" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          <mask id="inkMask" maskUnits="userSpaceOnUse" x="-200" y="-200" width="874" height="1300">
+            <rect x="-200" y="-200" width="874" height="1300" fill="black" />
+            <g filter="url(#inkFilter)" fill="white" id="inkBlobs">
+              <circle cx="150" cy="330" r="0" />
+              <circle cx="340" cy="600" r="0" />
+              <circle cx="250" cy="120" r="0" />
+              <circle cx="90" cy="760" r="0" />
+              <circle cx="400" cy="250" r="0" />
+              <circle cx="260" cy="860" r="0" />
+              <circle cx="230" cy="470" r="0" />
+            </g>
+          </mask>
+        </defs>
+        <g clip-path="url(#posterClip)">
+          <image id="posterImg" href="" x="0" y="0" width="474" height="900" preserveAspectRatio="none" mask="url(#inkMask)" />
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 9. Custom Cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-lbl">
+      <span>OPEN</span>
+      <span>開く</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ----------------------------------------------------------
+         1. Y1io ARCHIVE DATA (8 REAL PROJECTS + 4 RESERVED SLOTS)
+      ---------------------------------------------------------- */
+      const FILMS = [
+        {
+          id: 'logo3d',
+          num: '01',
+          cat: 'WEBGL',
+          title: 'Y1io Monogram Engine',
+          romaji: '3D EXTRUDED METAL & FLIP',
+          kanji: '3D金属徽标系统',
+          year: '2026',
+          meta: '2026 / WEBGL & GLSL / ARCHIVE #01',
+          synopsis: 'Interactive personal brand identity featuring a custom 3D extruded metal monogram in Three.js, custom GLSL shaders, and multi-node FLIP constellation transitions.',
+          theme: 'cobalt'
+        },
+        {
+          id: 'pagoda',
+          num: '02',
+          cat: 'WEBGL',
+          title: 'Nine Heavens Pagoda',
+          romaji: 'JIUXIAO LINGYUN GE',
+          kanji: '九霄凌云阁 3D',
+          year: '2026',
+          meta: '2026 / THREE.JS & PROCEDURAL / ARCHIVE #02',
+          synopsis: 'Single-file interactive 3D Chinese ancient pagoda palace featuring procedural architecture, dynamic day and night lighting cycles, mist toggles, and dual camera viewpoints.',
+          theme: 'vermilion'
+        },
+        {
+          id: 'koenigsegg',
+          num: '03',
+          cat: 'WEBGL',
+          title: 'One:1 Exploded View',
+          romaji: 'SCROLL-DRIVEN SUPERCAR',
+          kanji: '机械解构交互展示',
+          year: '2026',
+          meta: '2026 / THREE.JS & GSAP / ARCHIVE #03',
+          synopsis: 'Interactive 3D scroll-driven exploded view web showcase of the Koenigsegg One:1 supercar utilizing custom GLSL shaders, GSAP animation controls, and dynamic post-processing.',
+          theme: 'ink'
+        },
+        {
+          id: 'sky',
+          num: '04',
+          cat: 'DESIGN',
+          title: 'Sky._.Y1 Visual Lab',
+          romaji: 'DIGITAL MOTION & REELS',
+          kanji: '视觉动态实验室',
+          year: '2026',
+          meta: '2026 / MOTION & BRANDING / ARCHIVE #04',
+          synopsis: 'Personal creator identity and short-form visual engineering workflow blending electric cobalt minimalist aesthetics with AI-assisted motion synthesis.',
+          theme: 'cobalt'
+        },
+        {
+          id: 'comic',
+          num: '05',
+          cat: 'DESIGN',
+          title: '21-Page Original Manga',
+          romaji: 'ORIGINAL ANIME SERIES',
+          kanji: '原创漫画连载企划',
+          year: '2026',
+          meta: '2026 / ILLUSTRATION & STORY / ARCHIVE #05',
+          synopsis: 'A complete 21-page original anime comic panel series detailing the narrative, worldbuilding, and character turnaround designs of Dafeiyu, Jingjing, and Him.',
+          theme: 'vermilion'
+        },
+        {
+          id: 'y1core',
+          num: '06',
+          cat: 'WEBGL',
+          title: 'Y1io Archive Vol. 01',
+          romaji: 'CORE PORTFOLIO EDITION',
+          kanji: 'Y1io 核心作品集',
+          year: '2026',
+          meta: '2026 / INTERACTIVE ARCHIVE / EDITION #06',
+          synopsis: 'Flagship interactive portfolio archive curated by Y1io. Designed with physical 3D kinetics, bespoke shader pipelines, and tactile editorial typography.',
+          theme: 'cobalt'
+        },
+        {
+          id: 'festivest',
+          num: '07',
+          cat: 'CONCEPT',
+          title: 'FestiVest Modular',
+          romaji: 'MODULAR GARMENT SYSTEM',
+          kanji: '模块化机能背心',
+          year: '2026',
+          meta: '2026 / PRODUCT & STRATEGY / ARCHIVE #07',
+          synopsis: 'Modular garment product concept and entrepreneurial strategy engineered for live festival environments and rapid utility reconfiguration.',
+          theme: 'ink'
+        },
+        {
+          id: 'quant',
+          num: '08',
+          cat: 'CONCEPT',
+          title: 'Quant Alpha Framework',
+          romaji: 'ALGORITHMIC BACKTESTING',
+          kanji: '量化策略回测系统',
+          year: '2026',
+          meta: '2026 / PINE SCRIPT & PYTHON / ARCHIVE #08',
+          synopsis: 'Quantitative algorithmic strategy framework combining multi-timeframe signal logic with automated Python validation pipelines.',
+          theme: 'cobalt'
+        },
+        {
+          id: 'slot09',
+          num: '09',
+          cat: 'ARCHIVE',
+          title: 'Archive Slot 09',
+          romaji: 'RESERVED FOR FUTURE WORK',
+          kanji: '待收录项目 09',
+          year: '2026',
+          meta: '2026 / SLOT AVAILABLE / ARCHIVE #09',
+          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
+          theme: 'reserved'
+        },
+        {
+          id: 'slot10',
+          num: '10',
+          cat: 'ARCHIVE',
+          title: 'Archive Slot 10',
+          romaji: 'RESERVED FOR FUTURE WORK',
+          kanji: '待收录项目 10',
+          year: '2026',
+          meta: '2026 / SLOT AVAILABLE / ARCHIVE #10',
+          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
+          theme: 'reserved'
+        },
+        {
+          id: 'slot11',
+          num: '11',
+          cat: 'ARCHIVE',
+          title: 'Archive Slot 11',
+          romaji: 'RESERVED FOR FUTURE WORK',
+          kanji: '待收录项目 11',
+          year: '2026',
+          meta: '2026 / SLOT AVAILABLE / ARCHIVE #11',
+          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
+          theme: 'reserved'
+        },
+        {
+          id: 'slot12',
+          num: '12',
+          cat: 'ARCHIVE',
+          title: 'Archive Slot 12',
+          romaji: 'RESERVED FOR FUTURE WORK',
+          kanji: '待收录项目 12',
+          year: '2026',
+          meta: '2026 / SLOT AVAILABLE / ARCHIVE #12',
+          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
+          theme: 'reserved'
+        }
+      ];
+
+      /* ----------------------------------------------------------
+         2. PROCEDURAL SVG SPINE & COVER ARTWORK GENERATOR (Y1io)
+      ---------------------------------------------------------- */
+      const PALETTES = {
+        cobalt:    { bg: '#E6E2D8', ink: '#141414', accent: '#1F3FB0', sub: '#D9381E', card: '#DCD7CA' },
+        vermilion: { bg: '#E5E0D5', ink: '#141414', accent: '#C8371D', sub: '#1F3FB0', card: '#DBD5C7' },
+        ink:       { bg: '#181A20', ink: '#EDEBE6', accent: '#4169FF', sub: '#D9381E', card: '#22252E' },
+        reserved:  { bg: '#EAE7DF', ink: '#55524C', accent: '#1F3FB0', sub: '#8C887F', card: '#E0DDD4' }
+      };
+
+      function escXml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function renderArtworkGraphic(id, p) {
+        switch (id) {
+          case 'logo3d':
+            return `
+              <g transform="translate(237, 465)">
+                <circle cx="0" cy="0" r="145" fill="none" stroke="${p.ink}" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <polygon points="0,-125 110,-62 110,62 0,125 -110,62 -110,-62" fill="${p.accent}" fill-opacity="0.12" stroke="${p.accent}" stroke-width="3"/>
+                <polygon points="0,-125 110,-62 0,0 -110,-62" fill="${p.accent}" fill-opacity="0.28" stroke="${p.ink}" stroke-width="2"/>
+                <polygon points="0,0 110,-62 110,62 0,125" fill="${p.ink}" fill-opacity="0.15" stroke="${p.ink}" stroke-width="2"/>
+                <path d="M-48,-42 L0,8 L48,-42 M0,8 L0,68" fill="none" stroke="${p.ink}" stroke-width="12" stroke-linecap="square"/>
+                <circle cx="0" cy="-125" r="5" fill="${p.sub}"/>
+                <circle cx="110" cy="62" r="5" fill="${p.sub}"/>
+                <circle cx="-110" cy="62" r="5" fill="${p.sub}"/>
+              </g>`;
+          case 'pagoda':
+            return `
+              <g transform="translate(237, 475)">
+                <circle cx="0" cy="-35" r="115" fill="${p.accent}" fill-opacity="0.88"/>
+                <path d="M0,-145 L18,-110 L-18,-110 Z" fill="${p.ink}"/>
+                <path d="M-55,-85 Q0,-105 55,-85 L42,-65 L-42,-65 Z" fill="${p.ink}"/>
+                <path d="M-85,-35 Q0,-60 85,-35 L68,-10 L-68,-10 Z" fill="${p.ink}"/>
+                <path d="M-115,20 Q0,-10 115,20 L95,48 L-95,48 Z" fill="${p.ink}"/>
+                <path d="M-140,80 Q0,45 140,80 L118,112 L-118,112 Z" fill="${p.ink}"/>
+                <line x1="0" y1="-165" x2="0" y2="135" stroke="${p.bg}" stroke-width="2"/>
+                <rect x="-70" y="112" width="140" height="22" fill="${p.sub}"/>
+              </g>`;
+          case 'koenigsegg':
+            return `
+              <g transform="translate(237, 465)">
+                <rect x="-140" y="-155" width="280" height="310" fill="none" stroke="${p.accent}" stroke-width="1" stroke-dasharray="6 4"/>
+                <circle cx="0" cy="0" r="105" fill="none" stroke="${p.ink}" stroke-width="2"/>
+                <circle cx="0" cy="0" r="68" fill="none" stroke="${p.accent}" stroke-width="4" stroke-dasharray="28 14"/>
+                <circle cx="0" cy="0" r="26" fill="${p.sub}"/>
+                <path d="M-130,-95 L-65,-45 M130,-95 L65,-45 M-130,95 L-65,45 M130,95 L65,45" stroke="${p.ink}" stroke-width="2.5"/>
+                <rect x="-95" y="-135" width="190" height="28" fill="none" stroke="${p.ink}" stroke-width="2"/>
+                <rect x="-95" y="107" width="190" height="28" fill="none" stroke="${p.ink}" stroke-width="2"/>
+                <text x="0" y="-116" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="11" font-weight="600" fill="${p.ink}" letter-spacing="3">CHASSIS // 1:1 RATIO</text>
+              </g>`;
+          case 'sky':
+            return `
+              <g transform="translate(237, 465)">
+                <circle cx="-25" cy="-15" r="110" fill="${p.accent}" fill-opacity="0.85"/>
+                <circle cx="35" cy="25" r="95" fill="none" stroke="${p.ink}" stroke-width="3"/>
+                <circle cx="35" cy="25" r="60" fill="none" stroke="${p.sub}" stroke-width="2" stroke-dasharray="8 6"/>
+                <path d="M-135,85 Q-40,-80 0,20 T135,-65" fill="none" stroke="${p.bg}" stroke-width="5"/>
+                <polygon points="-15,-35 35,-10 -15,15" fill="${p.bg}"/>
+              </g>`;
+          case 'comic':
+            return `
+              <g transform="translate(237, 465)">
+                <rect x="-135" y="-150" width="125" height="140" fill="${p.accent}" fill-opacity="0.2" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="5" y="-150" width="130" height="85" fill="${p.sub}" fill-opacity="0.85" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="5" y="-50" width="130" height="190" fill="none" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="-135" y="5" width="125" height="135" fill="${p.ink}"/>
+                <line x1="-135" y1="-150" x2="-10" y2="-10" stroke="${p.ink}" stroke-width="2"/>
+                <circle cx="70" cy="45" r="38" fill="${p.accent}"/>
+                <text x="-72" y="82" text-anchor="middle" font-family="Newsreader, serif" font-style="italic" font-size="34" fill="${p.bg}">21p</text>
+              </g>`;
+          case 'y1core':
+            return `
+              <g transform="translate(237, 465)">
+                <circle cx="0" cy="0" r="138" fill="${p.accent}"/>
+                <circle cx="0" cy="0" r="112" fill="none" stroke="${p.bg}" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <path d="M-95,0 L95,0 M0,-95 L0,95" stroke="${p.bg}" stroke-width="1" stroke-opacity="0.5"/>
+                <text x="0" y="28" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-weight="700" font-size="86" fill="${p.bg}" letter-spacing="-2">Y1io</text>
+                <rect x="-64" y="52" width="128" height="22" fill="${p.sub}"/>
+                <text x="0" y="67" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="10" fill="#FFFFFF" letter-spacing="3">EDITION // 01</text>
+              </g>`;
+          case 'festivest':
+            return `
+              <g transform="translate(237, 465)">
+                <path d="M-85,-135 L-35,-135 L-20,-85 L20,-85 L35,-135 L85,-135 L115,-45 L95,135 L-95,135 L-115,-45 Z" fill="none" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="-70" y="-35" width="60" height="50" fill="${p.accent}" fill-opacity="0.35" stroke="${p.ink}" stroke-width="2"/>
+                <rect x="10" y="-35" width="60" height="50" fill="${p.accent}" fill-opacity="0.35" stroke="${p.ink}" stroke-width="2"/>
+                <rect x="-70" y="30" width="140" height="70" fill="none" stroke="${p.sub}" stroke-width="2" stroke-dasharray="6 4"/>
+                <line x1="0" y1="-85" x2="0" y2="135" stroke="${p.ink}" stroke-width="2"/>
+              </g>`;
+          case 'quant':
+            return `
+              <g transform="translate(237, 465)">
+                <g stroke="${p.ink}" stroke-opacity="0.2" stroke-width="1">
+                  <line x1="-140" y1="-100" x2="140" y2="-100"/>
+                  <line x1="-140" y1="-50" x2="140" y2="-50"/>
+                  <line x1="-140" y1="0" x2="140" y2="0"/>
+                  <line x1="-140" y1="50" x2="140" y2="50"/>
+                  <line x1="-140" y1="100" x2="140" y2="100"/>
+                </g>
+                <polyline points="-135,85 -85,30 -40,55 10,-35 55,-10 105,-95 135,-75" fill="none" stroke="${p.accent}" stroke-width="4"/>
+                <g fill="${p.sub}">
+                  <rect x="-93" y="5" width="16" height="55"/>
+                  <rect x="2" y="-65" width="16" height="60"/>
+                  <rect x="97" y="-120" width="16" height="50"/>
+                </g>
+                <circle cx="105" cy="-95" r="8" fill="${p.ink}"/>
+              </g>`;
+          default:
+            // Reserved Slots 09 - 12
+            return `
+              <g transform="translate(237, 465)">
+                <rect x="-130" y="-145" width="260" height="290" fill="none" stroke="${p.ink}" stroke-width="2" stroke-dasharray="8 8"/>
+                <line x1="-130" y1="-145" x2="130" y2="145" stroke="${p.ink}" stroke-width="1" stroke-dasharray="4 6"/>
+                <line x1="130" y1="-145" x2="-130" y2="145" stroke="${p.ink}" stroke-width="1" stroke-dasharray="4 6"/>
+                <rect x="-85" y="-42" width="170" height="84" fill="${p.bg}" stroke="${p.accent}" stroke-width="2"/>
+                <text x="0" y="-6" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="13" fill="${p.accent}" letter-spacing="3">SLOT AVAILABLE</text>
+                <text x="0" y="20" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-weight="500" font-size="15" fill="${p.ink}" letter-spacing="2">待收录项目</text>
+              </g>`;
+        }
+      }
+
+      function createSpineSvgUrl(film) {
+        const p = PALETTES[film.theme] || PALETTES.cobalt;
+        const isReserved = film.theme === 'reserved';
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142 840" width="142" height="840">
+          <rect width="142" height="840" fill="${p.bg}"/>
+          <rect x="8" y="10" width="126" height="820" fill="none" stroke="${p.ink}" stroke-width="1.5" stroke-opacity="0.75"/>
+          <line x1="8" y1="128" x2="134" y2="128" stroke="${p.ink}" stroke-width="1.2" stroke-opacity="0.6"/>
+          <line x1="8" y1="690" x2="134" y2="690" stroke="${p.ink}" stroke-width="1.2" stroke-opacity="0.6"/>
+          
+          <!-- Top Number & Geometric Emblem -->
+          <rect x="22" y="24" width="98" height="24" fill="${p.accent}"/>
+          <text x="71" y="40" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="12" fill="#FFFFFF" letter-spacing="3">NO. ${escXml(film.num)}</text>
+          <circle cx="71" cy="88" r="22" fill="${isReserved ? 'none' : p.sub}" stroke="${p.ink}" stroke-width="2" ${isReserved ? 'stroke-dasharray="4 3"' : ''}/>
+          <circle cx="71" cy="88" r="7" fill="${p.bg}"/>
+
+          <!-- Vertical Spine Title -->
+          <g transform="translate(62, 410) rotate(90)">
+            <text x="0" y="0" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-weight="600" font-size="30" fill="${p.ink}" letter-spacing="1">${escXml(film.title.toUpperCase())}</text>
+          </g>
+          <g transform="translate(98, 410) rotate(90)">
+            <text x="0" y="0" text-anchor="middle" font-family="Inter Tight, Noto Sans JP, sans-serif" font-weight="600" font-size="11.5" fill="${p.accent}" letter-spacing="2.5">${escXml(film.kanji)}</text>
+          </g>
+
+          <!-- Bottom Y1io Brand & Boxed Badge -->
+          <text x="71" y="732" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="15" fill="${p.ink}" letter-spacing="5">Y1io</text>
+          <rect x="31" y="754" width="80" height="36" fill="none" stroke="${p.ink}" stroke-width="2"/>
+          <rect x="35" y="758" width="72" height="28" fill="${p.ink}"/>
+          <text x="71" y="777" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="13" fill="${p.bg}" letter-spacing="3">${escXml(film.cat.slice(0, 5))}</text>
+        </svg>`;
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      }
+
+      function createCoverSvgUrl(film) {
+        const p = PALETTES[film.theme] || PALETTES.cobalt;
+        const headerLabel = film.theme === 'reserved' ? 'Y1io // RESERVED ARCHIVE SLOT' : 'A Y1io CREATIVE ARCHIVE PROJECT';
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 474 900" width="474" height="900">
+          <rect width="474" height="900" fill="${p.bg}"/>
+          <rect x="20" y="20" width="434" height="860" fill="none" stroke="${p.ink}" stroke-width="2"/>
+          <rect x="26" y="26" width="422" height="848" fill="none" stroke="${p.ink}" stroke-width="0.75" stroke-opacity="0.5"/>
+
+          <!-- Top Header Band -->
+          <line x1="20" y1="82" x2="454" y2="82" stroke="${p.ink}" stroke-width="1.5"/>
+          <text x="237" y="58" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="13" fill="${p.accent}" letter-spacing="4">${escXml(headerLabel)}</text>
+
+          <!-- Main Condensed Title & Subtitle -->
+          <text x="237" y="148" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-weight="600" font-size="40" fill="${p.ink}" letter-spacing="-0.5">${escXml(film.title)}</text>
+          <rect x="92" y="172" width="290" height="28" fill="${p.accent}"/>
+          <text x="237" y="191" text-anchor="middle" font-family="Inter Tight, Noto Sans JP, sans-serif" font-weight="600" font-size="12" fill="#FFFFFF" letter-spacing="2.5">${escXml(film.romaji)} / ${escXml(film.kanji)}</text>
+
+          <!-- Center Illustration Frame -->
+          <rect x="52" y="232" width="370" height="465" fill="${p.card}" stroke="${p.ink}" stroke-width="2"/>
+          ${renderArtworkGraphic(film.id, p)}
+
+          <!-- Bottom Archival Metadata & Y1io Badge -->
+          <line x1="20" y1="742" x2="454" y2="742" stroke="${p.ink}" stroke-width="1.5"/>
+          <text x="44" y="782" font-family="Inter Tight, sans-serif" font-weight="600" font-size="12" fill="${p.ink}" letter-spacing="2">${escXml(film.meta)}</text>
+          <text x="44" y="808" font-family="Newsreader, Georgia, serif" font-style="italic" font-size="16" fill="${p.ink}">Curated &amp; Engineered by Y1io</text>
+          <text x="44" y="842" font-family="Inter Tight, Noto Sans JP, sans-serif" font-weight="600" font-size="11" fill="${p.accent}" letter-spacing="3">Y1IO STUDIO // 个人作品集</text>
+
+          <g transform="translate(334, 770)">
+            <rect x="0" y="0" width="96" height="76" fill="none" stroke="${p.ink}" stroke-width="2"/>
+            <rect x="5" y="5" width="86" height="40" fill="${p.ink}"/>
+            <text x="48" y="31" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-weight="700" font-size="22" fill="${p.bg}">Y1io</text>
+            <text x="48" y="64" text-anchor="middle" font-family="Inter Tight, sans-serif" font-weight="600" font-size="11" fill="${p.ink}" letter-spacing="2.5">ARC-${escXml(film.num)}</text>
+          </g>
+        </svg>`;
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      }
+
+      const SPINE_URLS = {};
+      const COVER_URLS = {};
+      FILMS.forEach((f) => {
+        SPINE_URLS[f.id] = createSpineSvgUrl(f);
+        COVER_URLS[f.id] = createCoverSvgUrl(f);
+      });
+
+      /* ----------------------------------------------------------
+         3. DOM REFERENCES & STATE
+      ---------------------------------------------------------- */
+      const probe = document.getElementById('probe');
+      const shelf = document.getElementById('shelf');
+      const stage = document.getElementById('stage');
+      const playRing = document.getElementById('playRing');
+      const capTitle = document.getElementById('capTitle');
+      const capSub = document.getElementById('capSub');
+      const capYear = document.getElementById('capYear');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const tabInd = document.getElementById('tabInd');
+      const tabBtns = Array.from(document.querySelectorAll('.tab-btn'));
+      const cursor = document.getElementById('cursor');
+
+      const detail = document.getElementById('detail');
+      const closeBtn = document.getElementById('closeBtn');
+      const watchBtn = document.getElementById('watchBtn');
+      const dSub = document.getElementById('dSub');
+      const dTitle = document.getElementById('dTitle');
+      const dMeta = document.getElementById('dMeta');
+      const dSyn = document.getElementById('dSyn');
+      const dLines = Array.from(detail.querySelectorAll('.d-line'));
+      const posterImg = document.getElementById('posterImg');
+      const inkCircles = Array.from(document.querySelectorAll('#inkBlobs circle'));
+      const BLOB_DELAYS = [0, 120, 220, 300, 360, 420, 180];
+
+      const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let reducedMotion = reduceMotionQuery.matches;
+      reduceMotionQuery.addEventListener('change', (e) => {
+        reducedMotion = e.matches;
+      });
+
+      // Dimensions
+      let W = window.innerWidth;
+      let VH = window.innerHeight;
+      let H = 320;
+      let ws = 54;
+      let d = 168;
+      let gap = 9.6;
+
+      // Motion State (Opens on Y1io Archive Vol. 01: index 5 in middle copy -> 5 + 12 = 17)
+      let s = 17;
+      let T = 17;
+      let hover = -1;
+      let active = 5;
+
+      let mx = W / 2;
+      let my = VH / 2;
+      let cx = W / 2;
+      let cy = VH / 2;
+      let overBtn = false;
+
+      let tiltX = 0;
+      let tiltY = 0;
+      let onCover = false;
+      let isOpen = false;
+      let isDragging = false;
+      let dragMoved = false;
+      let dragStartX = 0;
+      let dragStartT = 17;
+      let wheelTimer = null;
+
+      let detailAnims = [];
+      let inkRafId = null;
+
+      /* ----------------------------------------------------------
+         4. BUILD 36 TAPES WITH PROCEDURAL Y1io ARTWORK
+      ---------------------------------------------------------- */
+      const tapes = [];
+      for (let copy = 0; copy < 3; copy++) {
+        for (let i = 0; i < 12; i++) {
+          const v = copy * 12 + i;
+          const film = FILMS[i];
+
+          const el = document.createElement('div');
+          el.className = 'tape';
+
+          const sp = document.createElement('div');
+          sp.className = 'face sp';
+          sp.style.backgroundImage = `url("${SPINE_URLS[film.id]}")`;
+          sp.style.backgroundSize = '100% 100%';
+
+          const cv = document.createElement('div');
+          cv.className = 'face cv';
+          cv.style.backgroundImage = `url("${COVER_URLS[film.id]}")`;
+          cv.style.backgroundSize = '100% 100%';
+
+          el.appendChild(sp);
+          el.appendChild(cv);
+          stage.appendChild(el);
+
+          const tapeObj = {
+            v,
+            i,
+            el,
+            sp,
+            cv,
+            lift: 0,
+            r: 0
+          };
+
+          el.addEventListener('pointerenter', (e) => {
+            if (e.pointerType !== 'touch') {
+              hover = v;
+            }
+          });
+
+          el.addEventListener('pointerleave', () => {
+            if (hover === v) hover = -1;
+          });
+
+          el.addEventListener('click', () => {
+            if (dragMoved || isOpen) return;
+            const r = tapeObj.r;
+            if (Math.abs(r) < 0.5) {
+              openDetail();
+            } else {
+              T = Math.round(s + r);
+            }
+          });
+
+          tapes.push(tapeObj);
+        }
+      }
+
+      /* ----------------------------------------------------------
+         5. MEASURE GEOMETRY
+      ---------------------------------------------------------- */
+      function measure() {
+        W = window.innerWidth;
+        VH = window.innerHeight;
+        H = probe.getBoundingClientRect().height || Math.min(0.46 * VH, 0.31 * W);
+        ws = H * (142 / 840);
+        d = H * (474 / 900);
+        gap = H * 0.03;
+
+        stage.style.setProperty('--ws', `${ws}px`);
+        stage.style.setProperty('--d', `${d}px`);
+
+        // Position play ring on active cover's lower-left corner
+        const shelfCenterY = VH / 2;
+        playRing.style.left = `${W / 2 - 0.5 * d - 6}px`;
+        playRing.style.top = `${shelfCenterY + 0.36 * H}px`;
+
+        updateDecadeIndicator();
+      }
+
+      window.addEventListener('resize', measure);
+
+      /* ----------------------------------------------------------
+         6. CAPTION & DECADE INDICATOR
+      ---------------------------------------------------------- */
+      function swapMaskText(container, text, dir, immediate) {
+        if (immediate || reducedMotion) {
+          container.innerHTML = '';
+          const span = document.createElement('span');
+          span.textContent = text;
+          container.appendChild(span);
+          return;
+        }
+
+        const oldSpans = Array.from(container.children);
+        oldSpans.forEach((old) => {
+          if (old.dataset.leaving) return;
+          old.dataset.leaving = '1';
+          const anim = old.animate(
+            [
+              { transform: getComputedStyle(old).transform === 'none' ? 'translateY(0%)' : getComputedStyle(old).transform },
+              { transform: `translateY(${-dir * 105}%)` }
+            ],
+            {
+              duration: 650,
+              easing: 'cubic-bezier(.2, .8, .2, 1)',
+              fill: 'both'
+            }
+          );
+          anim.onfinish = () => {
+            if (old.parentNode === container) {
+              container.removeChild(old);
+            }
+          };
+        });
+
+        const nextSpan = document.createElement('span');
+        nextSpan.textContent = text;
+        container.appendChild(nextSpan);
+
+        nextSpan.animate(
+          [
+            { transform: `translateY(${dir * 105}%)` },
+            { transform: 'translateY(0%)' }
+          ],
+          {
+            duration: 650,
+            easing: 'cubic-bezier(.2, .8, .2, 1)',
+            fill: 'both'
+          }
+        );
+      }
+
+      function updateDecadeIndicator() {
+        const film = FILMS[active];
+        const catStr = film.cat;
+        let activeBtn = null;
+
+        tabBtns.forEach((btn) => {
+          if (btn.dataset.decade === catStr) {
+            btn.classList.add('active');
+            activeBtn = btn;
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+
+        if (activeBtn) {
+          tabInd.style.width = `${activeBtn.offsetWidth}px`;
+          tabInd.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+        }
+      }
+
+      function setActive(newIndex, dir, immediate = false) {
+        active = newIndex;
+        const film = FILMS[active];
+        swapMaskText(capTitle, film.title, dir, immediate);
+        swapMaskText(capSub, `${film.romaji} / ${film.kanji}`, dir, immediate);
+        swapMaskText(capYear, `${film.year} · ${film.cat} · NO.${film.num}`, dir, immediate);
+        updateDecadeIndicator();
+      }
+
+      /* ----------------------------------------------------------
+         7. MATH & SHELF PLACEMENT FORMULAS
+      ---------------------------------------------------------- */
+      function smoothstep(x) {
+        const t = Math.max(0, Math.min(1, x));
+        return t * t * (3 - 2 * t);
+      }
+
+      function B(r) {
+        if (r <= -1) return -0.5;
+        if (r >= 1) return 0.5;
+        return (r + Math.sin(Math.PI * r) / Math.PI) / 2;
+      }
+
+      function F(r) {
+        return r * (ws + gap) + (d - ws + 1.6 * gap) * B(r);
+      }
+
+      function wrapRelative(diff) {
+        return ((((diff + 18) % 36) + 36) % 36) - 18;
+      }
+
+      function mod12(n) {
+        return ((n % 12) + 12) % 12;
+      }
+
+      /* ----------------------------------------------------------
+         8. INPUTS (TABS, ARROWS, KEYBOARD, WHEEL, DRAG)
+      ---------------------------------------------------------- */
+      prevBtn.addEventListener('click', () => {
+        if (isOpen) return;
+        T = Math.round(T) - 1;
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (isOpen) return;
+        T = Math.round(T) + 1;
+      });
+
+      playRing.addEventListener('click', () => {
+        if (!isOpen) openDetail();
+      });
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (isOpen) return;
+          const dec = btn.dataset.decade;
+          let targetFilmIdx = 0;
+          if (dec !== 'all') {
+            const found = FILMS.findIndex((f) => f.cat === dec);
+            if (found !== -1) targetFilmIdx = found;
+          }
+          const currentMod = mod12(Math.round(T));
+          let diff = targetFilmIdx - currentMod;
+          if (diff > 6) diff -= 12;
+          if (diff < -6) diff += 12;
+          T = Math.round(T) + diff;
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          e.preventDefault();
+          closeDetail();
+          return;
+        }
+        if (isOpen) return;
+
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          T = Math.round(T) - 1;
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          T = Math.round(T) + 1;
+        } else if (e.key === 'Enter' && (document.activeElement === document.body || document.activeElement === shelf)) {
+          e.preventDefault();
+          openDetail();
+        }
+      });
+
+      window.addEventListener('wheel', (e) => {
+        if (isOpen) return;
+        e.preventDefault();
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        T += (delta / (ws + gap)) * 0.5;
+
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+          T = Math.round(T);
+        }, 160);
+      }, { passive: false });
+
+      // Shelf Dragging
+      shelf.addEventListener('pointerdown', (e) => {
+        if (isOpen || e.button !== 0) return;
+        isDragging = true;
+        dragMoved = false;
+        dragStartX = e.clientX;
+        dragStartT = T;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartX;
+        if (!dragMoved && Math.abs(dx) > 5) {
+          dragMoved = true;
+        }
+        if (dragMoved) {
+          T = dragStartT - dx / (ws + gap);
+        }
+      });
+
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        if (dragMoved) {
+          T = Math.round(T);
+          setTimeout(() => {
+            dragMoved = false;
+          }, 40);
+        }
+      }
+
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+
+      // Button hover tracking for custom cursor
+      document.querySelectorAll('[data-btn]').forEach((el) => {
+        el.addEventListener('pointerenter', () => { overBtn = true; });
+        el.addEventListener('pointerleave', () => { overBtn = false; });
+      });
+
+      /* ----------------------------------------------------------
+         9. DETAIL SHEET & INK BLOT REVEAL
+      ---------------------------------------------------------- */
+      function getActiveTapeObject() {
+        let best = tapes[0];
+        let bestDist = Infinity;
+        for (let i = 0; i < tapes.length; i++) {
+          const dist = Math.abs(wrapRelative(tapes[i].v - s));
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = tapes[i];
+          }
+        }
+        return best;
+      }
+
+      function setPosterCrop(filmId) {
+        posterImg.setAttribute('href', COVER_URLS[filmId]);
+        posterImg.setAttribute('x', '0');
+        posterImg.setAttribute('y', '0');
+        posterImg.setAttribute('width', '474');
+        posterImg.setAttribute('height', '900');
+      }
+
+      function cancelDetailAnimations() {
+        detailAnims.forEach((a) => a.cancel());
+        detailAnims = [];
+        if (inkRafId) {
+          cancelAnimationFrame(inkRafId);
+          inkRafId = null;
+        }
+      }
+
+      function openDetail() {
+        if (isOpen) return;
+        isOpen = true;
+        hover = -1;
+
+        // 1. Prepare
+        T = Math.round(T);
+        s = T;
+        const filmIdx = mod12(T);
+        if (filmIdx !== active) {
+          setActive(filmIdx, 1, true);
+        }
+        const film = FILMS[active];
+
+        dSub.textContent = `${film.romaji} / ${film.kanji}`;
+        dTitle.textContent = film.title;
+        dMeta.textContent = film.meta;
+        dSyn.textContent = film.synopsis;
+
+        setPosterCrop(film.id);
+        inkCircles.forEach((c) => c.setAttribute('r', '0'));
+
+        cancelDetailAnimations();
+
+        const activeTape = getActiveTapeObject();
+        const rect = activeTape.cv.getBoundingClientRect();
+        const cxRect = rect.left + rect.width / 2;
+        const cyRect = rect.top + rect.height / 2;
+
+        const topInset = Math.max(0, rect.top);
+        const rightInset = Math.max(0, W - rect.right);
+        const bottomInset = Math.max(0, VH - rect.bottom);
+        const leftInset = Math.max(0, rect.left);
+
+        // 2. The sheet grows out of the cover
+        detail.style.visibility = 'visible';
+        detail.style.transformOrigin = `${cxRect}px ${cyRect}px`;
+
+        const sheetDur = reducedMotion ? 1 : 1050;
+        const sheetAnim = detail.animate(
+          [
+            {
+              clipPath: `inset(${topInset}px ${rightInset}px ${bottomInset}px ${leftInset}px round 3px)`,
+              transform: 'rotate(-4.5deg)'
+            },
+            {
+              clipPath: 'inset(0px 0px 0px 0px round 0px)',
+              transform: 'rotate(0deg)'
+            }
+          ],
+          {
+            duration: sheetDur,
+            easing: 'cubic-bezier(.76, 0, .18, 1)',
+            fill: 'both'
+          }
+        );
+        detailAnims.push(sheetAnim);
+
+        // 3. Text rises
+        const textDur = reducedMotion ? 1 : 900;
+        dLines.forEach((line, idx) => {
+          const delay = reducedMotion ? 0 : 620 + idx * 75;
+          const lineAnim = line.animate(
+            [
+              { transform: 'translateY(110%)' },
+              { transform: 'translateY(0%)' }
+            ],
+            {
+              duration: textDur,
+              delay,
+              easing: 'cubic-bezier(.2, .8, .2, 1)',
+              fill: 'both'
+            }
+          );
+          detailAnims.push(lineAnim);
+        });
+
+        // 4. The poster bleeds in
+        const inkStart = performance.now() + (reducedMotion ? -5000 : 520);
+        function tickInk(now) {
+          const elapsed = now - inkStart;
+          for (let i = 0; i < inkCircles.length; i++) {
+            const local = elapsed - BLOB_DELAYS[i];
+            if (local <= 0) {
+              inkCircles[i].setAttribute('r', '0');
+            } else {
+              const p = Math.min(1, local / 1250);
+              const eased = 1 - Math.pow(1 - p, 3);
+              inkCircles[i].setAttribute('r', (eased * 720).toFixed(1));
+            }
+          }
+          if (elapsed < 2400) {
+            inkRafId = requestAnimationFrame(tickInk);
+          } else {
+            inkRafId = null;
+          }
+        }
+        inkRafId = requestAnimationFrame(tickInk);
+      }
+
+      function closeDetail() {
+        if (!isOpen) return;
+
+        const activeTape = getActiveTapeObject();
+        const rect = activeTape.cv.getBoundingClientRect();
+        const cxRect = rect.left + rect.width / 2;
+        const cyRect = rect.top + rect.height / 2;
+
+        const topInset = Math.max(0, rect.top);
+        const rightInset = Math.max(0, W - rect.right);
+        const bottomInset = Math.max(0, VH - rect.bottom);
+        const leftInset = Math.max(0, rect.left);
+
+        detail.style.transformOrigin = `${cxRect}px ${cyRect}px`;
+
+        const closeDur = reducedMotion ? 1 : 850;
+        const closeAnim = detail.animate(
+          [
+            {
+              clipPath: 'inset(0px 0px 0px 0px round 0px)',
+              transform: 'rotate(0deg)'
+            },
+            {
+              clipPath: `inset(${topInset}px ${rightInset}px ${bottomInset}px ${leftInset}px round 3px)`,
+              transform: 'rotate(-4.5deg)'
+            }
+          ],
+          {
+            duration: closeDur,
+            easing: 'cubic-bezier(.76, 0, .18, 1)',
+            fill: 'both'
+          }
+        );
+
+        detailAnims.push(closeAnim);
+
+        closeAnim.onfinish = () => {
+          detail.style.visibility = 'hidden';
+          cancelDetailAnimations();
+          isOpen = false;
+        };
+      }
+
+      closeBtn.addEventListener('click', closeDetail);
+      watchBtn.addEventListener('click', closeDetail);
+
+      /* ----------------------------------------------------------
+         10. MAIN REQUESTANIMATIONFRAME LOOP
+      ---------------------------------------------------------- */
+      let lastTime = performance.now();
+
+      function tick(now) {
+        const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
+        lastTime = now;
+
+        // 1. Scroll spring
+        if (reducedMotion) {
+          s = T;
+        } else {
+          const k = isDragging ? 18 : 5.2;
+          s += (T - s) * (1 - Math.exp(-k * dt));
+          if (Math.abs(T - s) < 1e-4) {
+            s = T;
+          }
+        }
+
+        // 2. Normalise loop if drifted beyond ±4 full loops (48 units)
+        if (Math.abs(s - 18) > 48) {
+          const shift = Math.round((s - 18) / 12) * 12;
+          s -= shift;
+          T -= shift;
+        }
+
+        // 3. Caption active check
+        const currentActive = mod12(Math.round(s));
+        if (currentActive !== active) {
+          const dir = (T - s) >= 0 ? 1 : -1;
+          setActive(currentActive, dir, false);
+        }
+
+        // 4. Cursor & Tilt calculations
+        const shelfCy = VH / 2;
+        const settled = Math.abs(T - s) < 0.3;
+
+        onCover = (
+          !isOpen &&
+          settled &&
+          Math.abs(mx - W / 2) < 0.55 * d &&
+          Math.abs(my - shelfCy) < 0.55 * H
+        );
+
+        let targetTiltY = 0;
+        let targetTiltX = 0;
+        if (onCover) {
+          targetTiltY = ((mx - W / 2) / (0.55 * d)) * 9;
+          targetTiltX = -((my - shelfCy) / (H / 2)) * 6;
+        } else {
+          targetTiltY = ((mx - W / 2) / W) * 5;
+          targetTiltX = 0;
+        }
+
+        const tiltEase = reducedMotion ? 1 : 1 - Math.exp(-7 * dt);
+        tiltY += (targetTiltY - tiltY) * tiltEase;
+        tiltX += (targetTiltX - tiltX) * tiltEase;
+
+        // 5. Update 36 Tapes
+        const cullLimit = W / 2 + 1.5 * d;
+        const liftEase = reducedMotion ? 1 : 1 - Math.exp(-12 * dt);
+
+        for (let idx = 0; idx < 36; idx++) {
+          const tape = tapes[idx];
+          const r = wrapRelative(tape.v - s);
+          tape.r = r;
+
+          const x = F(r);
+          if (Math.abs(x) > cullLimit) {
+            tape.el.style.visibility = 'hidden';
+            continue;
+          }
+          tape.el.style.visibility = 'visible';
+
+          const absR = Math.abs(r);
+          const o = smoothstep(Math.max(0, 1 - absR));
+
+          const liftTarget = (!isOpen && hover === tape.v && absR > 0.5) ? 1 : 0;
+          tape.lift += (liftTarget - tape.lift) * liftEase;
+
+          const rotY = -90 * o + tiltY * o;
+          const rotX = tiltX * o;
+          const rotZ = -4.5 * o;
+          const tz = o * 0.2 * H;
+          const ty = -o * 0.025 * H - tape.lift * 0.045 * H;
+
+          tape.el.style.transform = `translate3d(${x.toFixed(2)}px, ${ty.toFixed(2)}px, ${tz.toFixed(2)}px) rotateZ(${rotZ.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+          tape.el.style.zIndex = String(Math.round(100 - absR * 10));
+
+          tape.sp.style.setProperty('--shade', (o * 0.55).toFixed(3));
+          tape.cv.style.setProperty('--shade', ((1 - o) * 0.5).toFixed(3));
+        }
+
+        // 6. Play Ring Scale
+        const ringScale = isOpen ? 0 : smoothstep(Math.max(0, 1 - Math.abs(T - s) * 3));
+        playRing.style.transform = `scale(${ringScale.toFixed(3)})`;
+
+        // 7. Custom Cursor Position & State
+        const cursorEase = reducedMotion ? 1 : 1 - Math.exp(-16 * dt);
+        cx += (mx - cx) * cursorEase;
+        cy += (my - cy) * cursorEase;
+        cursor.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+
+        let cursorState = '';
+        if (isOpen) {
+          cursorState = overBtn ? 'btn' : '';
+        } else if (overBtn) {
+          cursorState = 'btn';
+        } else if (onCover) {
+          cursorState = 'open';
+        } else if (hover !== -1) {
+          const hoveredTape = tapes[hover];
+          if (hoveredTape && Math.abs(hoveredTape.r) > 0.5) {
+            cursorState = 'spine';
+          }
+        }
+        cursor.className = cursorState ? `cursor ${cursorState}` : 'cursor';
+
+        requestAnimationFrame(tick);
+      }
+
+      /* ----------------------------------------------------------
+         11. INITIALISE
+      ---------------------------------------------------------- */
+      measure();
+      setActive(5, 1, true);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measure);
+      }
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
