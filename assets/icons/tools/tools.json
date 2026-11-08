@@ -3,19 +3,19 @@
   "id": "excel",
   "name": "Excel",
   "cat": "business",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "word",
   "name": "Word",
   "cat": "business",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "powerpoint",
   "name": "PowerPoint",
   "cat": "business",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "obsidian",
@@ -33,13 +33,19 @@
   "id": "capcut",
   "name": "CapCut",
   "cat": "design",
-  "monogram": true
+  "monogram": false
+ },
+ {
+  "id": "jianying",
+  "name": "Jianying \u526a\u6620",
+  "cat": "design",
+  "monogram": false
  },
  {
   "id": "remotion",
   "name": "Remotion",
   "cat": "design",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "comfyui",
@@ -51,7 +57,7 @@
   "id": "gptsovits",
   "name": "GPT-SoVITS",
   "cat": "design",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "blender",
@@ -159,13 +165,13 @@
   "id": "gsap",
   "name": "GSAP",
   "cat": "web",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "animejs",
   "name": "Anime.js",
   "cat": "web",
-  "monogram": true
+  "monogram": false
  },
  {
   "id": "tailwind",
