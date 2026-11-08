@@ -711,7 +711,6 @@
     <button type="button" class="lbl tab-btn" data-decade="WEBGL" data-btn>WEBGL / 3D</button>
     <button type="button" class="lbl tab-btn" data-decade="DESIGN" data-btn>DESIGN / 视觉</button>
     <button type="button" class="lbl tab-btn" data-decade="CONCEPT" data-btn>CONCEPT / 企划</button>
-    <button type="button" class="lbl tab-btn" data-decade="ARCHIVE" data-btn>ARCHIVE / 待定</button>
   </nav>
 
   <!-- 3. The Shelf (3D Stage) -->
@@ -762,6 +761,9 @@
     </div>
 
     <div class="detail-left">
+      <div class="d-mask"><p class="d-line d-sub" id="dSub"></p></div>
+      <div class="d-mask"><h2 class="d-line d-title" id="dTitle"></h2></div>
+      <div class="d-mask"><p class="d-line d-meta" id="dMeta"></p></div>
       <div class="d-mask">
         <p class="d-line d-Syn" id="dSyn"></p>
       </div>
@@ -820,7 +822,7 @@
       'use strict';
 
       /* ----------------------------------------------------------
-         1. Y1io ARCHIVE DATA (8 REAL PROJECTS + 4 RESERVED SLOTS)
+         1. Y1io ARCHIVE DATA (15 PROJECTS)
       ---------------------------------------------------------- */
       const FILMS = [
         {
@@ -920,54 +922,98 @@
           theme: 'cobalt'
         },
         {
-          id: 'slot09',
-          num: '09',
-          cat: 'ARCHIVE',
-          title: 'Archive Slot 09',
-          romaji: 'RESERVED FOR FUTURE WORK',
-          kanji: '待收录项目 09',
-          year: '2026',
-          meta: '2026 / SLOT AVAILABLE / ARCHIVE #09',
-          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
-          theme: 'reserved'
+          "id": "jesko",
+          "cat": "WEBGL",
+          "title": "JeskoStudio",
+          "romaji": "3D VEHICLE SHOWROOM",
+          "kanji": "3D 汽车展厅定制器",
+          "synopsis": "Browser-based 3D vehicle showroom and customiser: material, lighting and camera controls, GLB import/export, engineering hotspots and a visual wind-tunnel mode. Car model by HYPR:IMPS 3D, CC BY 4.0.",
+          "theme": "ink",
+          "num": "09",
+          "year": "2026",
+          "meta": "2026 / THREE.JS & GLB / ARCHIVE #09",
+          "url": "jesko/"
         },
         {
-          id: 'slot10',
-          num: '10',
-          cat: 'ARCHIVE',
-          title: 'Archive Slot 10',
-          romaji: 'RESERVED FOR FUTURE WORK',
-          kanji: '待收录项目 10',
-          year: '2026',
-          meta: '2026 / SLOT AVAILABLE / ARCHIVE #10',
-          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
-          theme: 'reserved'
+          "id": "air3s",
+          "cat": "WEBGL",
+          "title": "AIR 3S Aero Lab",
+          "romaji": "DRONE ANATOMY & FLIGHT",
+          "kanji": "无人机解构与飞行",
+          "synopsis": "A DJI Air 3S study built entirely in code with custom GLSL surfaces. Explode the airframe layer by layer, focus on any part, fold the arms, then fly it with WASD.",
+          "theme": "cobalt",
+          "num": "10",
+          "year": "2026",
+          "meta": "2026 / THREE.JS & GLSL / ARCHIVE #10",
+          "url": "air3s/"
         },
         {
-          id: 'slot11',
-          num: '11',
-          cat: 'ARCHIVE',
-          title: 'Archive Slot 11',
-          romaji: 'RESERVED FOR FUTURE WORK',
-          kanji: '待收录项目 11',
-          year: '2026',
-          meta: '2026 / SLOT AVAILABLE / ARCHIVE #11',
-          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
-          theme: 'reserved'
+          "id": "fogong",
+          "cat": "WEBGL",
+          "title": "Fogong Temple Pagoda",
+          "romaji": "ARCHITECTURAL 3D STUDY",
+          "kanji": "佛宫寺释迦塔",
+          "synopsis": "Procedural multi-level pagoda inspired by the Yingxian Wooden Pagoda, with orbit and first-person views, camera presets, day/night and fog controls.",
+          "theme": "vermilion",
+          "num": "11",
+          "year": "2026",
+          "meta": "2026 / WEBGL & PROCEDURAL / ARCHIVE #11",
+          "url": "pagoda.html"
         },
         {
-          id: 'slot12',
-          num: '12',
-          cat: 'ARCHIVE',
-          title: 'Archive Slot 12',
-          romaji: 'RESERVED FOR FUTURE WORK',
-          kanji: '待收录项目 12',
-          year: '2026',
-          meta: '2026 / SLOT AVAILABLE / ARCHIVE #12',
-          synopsis: 'This archival cassette slot is currently reserved for upcoming Y1io interactive web engineering, shader experiments, or visual design projects.',
-          theme: 'reserved'
+          "id": "pocket",
+          "cat": "WEBGL",
+          "title": "Pocket Universe",
+          "romaji": "3D MINI-GAME",
+          "kanji": "口袋宇宙小游戏",
+          "synopsis": "A small exploration game: walk an astronaut around six themed miniature planets, find landmarks and listen to procedural audio. Desktop and touch, Chinese/English.",
+          "theme": "cobalt",
+          "num": "12",
+          "year": "2026",
+          "meta": "2026 / REACT & THREE.JS / ARCHIVE #12",
+          "url": "pocket/"
+        },
+        {
+          "id": "ezreview",
+          "cat": "DESIGN",
+          "title": "Ezliiv Model Review",
+          "romaji": "3D PRODUCT REVIEW",
+          "kanji": "购物车产品三维审阅",
+          "synopsis": "Interactive shopping-trolley concept for client review: exploded assembly, bag cut-away, internal lift tray, folding seat, wheel-cluster rotation and GLB export.",
+          "theme": "ink",
+          "num": "13",
+          "year": "2026",
+          "meta": "2026 / PRODUCT 3D / ARCHIVE #13",
+          "url": "ezliiv-review.html"
+        },
+        {
+          "id": "ezvideo",
+          "cat": "DESIGN",
+          "title": "Ezliiv Explainer",
+          "romaji": "PRODUCT FILM 40s",
+          "kanji": "产品讲解短片",
+          "synopsis": "The Ezliiv model turned into a 40-second, eight-chapter 1080p explainer film with camera choreography and motion typography.",
+          "theme": "vermilion",
+          "num": "14",
+          "year": "2026",
+          "meta": "2026 / MOTION & COPY / ARCHIVE #14",
+          "url": "ezliiv-explainer.mp4"
+        },
+        {
+          "id": "sportzone",
+          "cat": "CONCEPT",
+          "title": "SportZone",
+          "romaji": "E-COMMERCE JOURNEY",
+          "kanji": "电商购物流程原型",
+          "synopsis": "E-commerce customer-journey prototype: product search, cart, checkout, delivery-or-collection choice and simulated order updates. Where business studies meet interface design.",
+          "theme": "cobalt",
+          "num": "15",
+          "year": "2026",
+          "meta": "2026 / UX & BUSINESS / ARCHIVE #15",
+          "url": "sportzone.html"
         }
       ];
+      const N = FILMS.length;
 
       /* ----------------------------------------------------------
          2. PROCEDURAL SVG SPINE & COVER ARTWORK GENERATOR (Y1io)
@@ -1082,8 +1128,87 @@
                 </g>
                 <circle cx="105" cy="-95" r="8" fill="${p.ink}"/>
               </g>`;
+          case 'jesko':
+            return `
+              <g transform="translate(237, 465)">
+                <path d="M-150,40 C-140,10 -110,-10 -60,-22 C-20,-48 40,-52 80,-30 C115,-24 140,-8 150,20 L150,48 L-150,48 Z" fill="${p.accent}" fill-opacity="0.25" stroke="${p.ink}" stroke-width="3"/>
+                <path d="M-40,-24 C-10,-44 35,-46 62,-28" fill="none" stroke="${p.ink}" stroke-width="2"/>
+                <path d="M110,-60 L150,-60 L150,-40 M130,-60 L130,-22" fill="none" stroke="${p.ink}" stroke-width="3"/>
+                <circle cx="-88" cy="50" r="30" fill="${p.bg}" stroke="${p.ink}" stroke-width="3"/><circle cx="-88" cy="50" r="12" fill="${p.sub}"/>
+                <circle cx="92" cy="50" r="30" fill="${p.bg}" stroke="${p.ink}" stroke-width="3"/><circle cx="92" cy="50" r="12" fill="${p.sub}"/>
+                <g stroke="${p.ink}" stroke-opacity="0.35" stroke-width="1.5"><line x1="-190" y1="-90" x2="-60" y2="-90"/><line x1="-190" y1="-72" x2="-90" y2="-72"/><line x1="-190" y1="-54" x2="-120" y2="-54"/></g>
+              </g>`;
+          case 'air3s':
+            return `
+              <g transform="translate(237, 465)">
+                <g stroke="${p.ink}" stroke-width="5"><line x1="-95" y1="-95" x2="95" y2="95"/><line x1="95" y1="-95" x2="-95" y2="95"/></g>
+                <rect x="-38" y="-52" width="76" height="104" rx="16" fill="${p.accent}" fill-opacity="0.3" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="-18" y="52" width="36" height="26" fill="${p.ink}"/>
+                <g fill="none" stroke="${p.ink}" stroke-width="2.5">
+                  <ellipse cx="-95" cy="-95" rx="62" ry="12"/><ellipse cx="95" cy="-95" rx="62" ry="12"/>
+                  <ellipse cx="-95" cy="95" rx="62" ry="12"/><ellipse cx="95" cy="95" rx="62" ry="12"/>
+                </g>
+                <g fill="${p.sub}"><circle cx="-95" cy="-95" r="7"/><circle cx="95" cy="-95" r="7"/><circle cx="-95" cy="95" r="7"/><circle cx="95" cy="95" r="7"/></g>
+              </g>`;
+          case 'fogong':
+            return `
+              <g transform="translate(237, 465)" stroke="${p.ink}" stroke-width="2.5">
+                <line x1="0" y1="-170" x2="0" y2="-135"/>
+                <path d="M-40,-125 L0,-140 L40,-125 Z" fill="${p.accent}" fill-opacity="0.35"/>
+                <rect x="-26" y="-125" width="52" height="30" fill="none"/>
+                <path d="M-70,-90 L0,-108 L70,-90 Z" fill="${p.accent}" fill-opacity="0.35"/>
+                <rect x="-46" y="-90" width="92" height="34" fill="none"/>
+                <path d="M-100,-50 L0,-72 L100,-50 Z" fill="${p.accent}" fill-opacity="0.35"/>
+                <rect x="-66" y="-50" width="132" height="38" fill="none"/>
+                <path d="M-130,-6 L0,-32 L130,-6 Z" fill="${p.accent}" fill-opacity="0.35"/>
+                <rect x="-86" y="-6" width="172" height="44" fill="none"/>
+                <path d="M-160,44 L0,14 L160,44 Z" fill="${p.sub}" fill-opacity="0.35"/>
+                <rect x="-110" y="44" width="220" height="56" fill="none"/>
+                <line x1="-150" y1="100" x2="150" y2="100" stroke-width="4"/>
+              </g>`;
+          case 'pocket':
+            return `
+              <g transform="translate(237, 465)">
+                <ellipse cx="0" cy="0" rx="175" ry="44" fill="none" stroke="${p.ink}" stroke-width="2" stroke-dasharray="6 6" transform="rotate(-18)"/>
+                <circle cx="0" cy="0" r="105" fill="${p.accent}" fill-opacity="0.22" stroke="${p.ink}" stroke-width="3"/>
+                <path d="M-60,-40 L-40,-80 L-20,-40 Z M20,-60 L35,-92 L50,-60 Z M-20,40 L0,0 L20,40 Z" fill="${p.ink}" fill-opacity="0.65"/>
+                <circle cx="70" cy="-112" r="16" fill="${p.bg}" stroke="${p.ink}" stroke-width="3"/>
+                <rect x="60" y="-98" width="20" height="26" rx="6" fill="${p.bg}" stroke="${p.ink}" stroke-width="3"/>
+                <circle cx="-130" cy="-130" r="6" fill="${p.sub}"/><circle cx="140" cy="110" r="4" fill="${p.sub}"/><circle cx="-150" cy="90" r="3" fill="${p.ink}"/>
+              </g>`;
+          case 'ezreview':
+            return `
+              <g transform="translate(237, 465)">
+                <path d="M20,-150 C20,-180 80,-180 80,-150 L80,90" fill="none" stroke="${p.ink}" stroke-width="5"/>
+                <rect x="-90" y="-110" width="140" height="170" rx="6" fill="${p.accent}" fill-opacity="0.25" stroke="${p.ink}" stroke-width="3"/>
+                <g stroke="${p.sub}" stroke-width="6"><line x1="-86" y1="-96" x2="46" y2="-96"/><line x1="-86" y1="-80" x2="46" y2="-80"/><line x1="-86" y1="-64" x2="46" y2="-64"/></g>
+                <g fill="${p.bg}" stroke="${p.ink}" stroke-width="3"><circle cx="70" cy="110" r="18"/><circle cx="104" cy="92" r="18"/><circle cx="100" cy="130" r="18"/></g>
+                <g stroke="${p.ink}" stroke-width="1.5" stroke-dasharray="4 5"><line x1="-90" y1="70" x2="-150" y2="130"/><line x1="50" y1="-110" x2="140" y2="-170"/></g>
+                <rect x="-170" y="124" width="70" height="20" fill="none" stroke="${p.ink}" stroke-width="1.5"/>
+              </g>`;
+          case 'ezvideo':
+            return `
+              <g transform="translate(237, 465)">
+                <rect x="-160" y="-110" width="320" height="220" fill="none" stroke="${p.ink}" stroke-width="3"/>
+                <g fill="${p.ink}">
+                  <rect x="-150" y="-100" width="18" height="12"/><rect x="-150" y="-70" width="18" height="12"/><rect x="-150" y="-40" width="18" height="12"/><rect x="-150" y="-10" width="18" height="12"/><rect x="-150" y="20" width="18" height="12"/><rect x="-150" y="50" width="18" height="12"/><rect x="-150" y="80" width="18" height="12"/>
+                  <rect x="132" y="-100" width="18" height="12"/><rect x="132" y="-70" width="18" height="12"/><rect x="132" y="-40" width="18" height="12"/><rect x="132" y="-10" width="18" height="12"/><rect x="132" y="20" width="18" height="12"/><rect x="132" y="50" width="18" height="12"/><rect x="132" y="80" width="18" height="12"/>
+                </g>
+                <circle cx="0" cy="0" r="62" fill="${p.accent}" fill-opacity="0.3" stroke="${p.ink}" stroke-width="3"/>
+                <path d="M-18,-32 L36,0 L-18,32 Z" fill="${p.sub}"/>
+              </g>`;
+          case 'sportzone':
+            return `
+              <g transform="translate(237, 465)">
+                <path d="M-160,-100 L-110,-100 L-70,60 L100,60 L135,-50 L-95,-50" fill="none" stroke="${p.ink}" stroke-width="5" stroke-linejoin="round"/>
+                <rect x="-62" y="-36" width="70" height="80" fill="${p.accent}" fill-opacity="0.3" stroke="${p.ink}" stroke-width="2"/>
+                <rect x="20" y="-36" width="70" height="80" fill="${p.sub}" fill-opacity="0.3" stroke="${p.ink}" stroke-width="2"/>
+                <circle cx="-50" cy="100" r="18" fill="${p.bg}" stroke="${p.ink}" stroke-width="4"/>
+                <circle cx="80" cy="100" r="18" fill="${p.bg}" stroke="${p.ink}" stroke-width="4"/>
+                <text x="-50" y="-130" font-family="Inter Tight, sans-serif" font-weight="600" font-size="22" fill="${p.ink}" letter-spacing="4">CHECKOUT</text>
+              </g>`;
           default:
-            // Reserved Slots 09 - 12
+            // Reserved slots
             return `
               <g transform="translate(237, 465)">
                 <rect x="-130" y="-145" width="260" height="290" fill="none" stroke="${p.ink}" stroke-width="2" stroke-dasharray="8 8"/>
@@ -1215,8 +1340,8 @@
       let gap = 9.6;
 
       // Motion State (Opens on Y1io Archive Vol. 01: index 5 in middle copy -> 5 + 12 = 17)
-      let s = 17;
-      let T = 17;
+      let s = N + 5;
+      let T = N + 5;
       let hover = -1;
       let active = 5;
 
@@ -1240,12 +1365,12 @@
       let inkRafId = null;
 
       /* ----------------------------------------------------------
-         4. BUILD 36 TAPES WITH PROCEDURAL Y1io ARTWORK
+         4. BUILD 3 x N TAPES WITH PROCEDURAL Y1io ARTWORK
       ---------------------------------------------------------- */
       const tapes = [];
       for (let copy = 0; copy < 3; copy++) {
-        for (let i = 0; i < 12; i++) {
-          const v = copy * 12 + i;
+        for (let i = 0; i < N; i++) {
+          const v = copy * N + i;
           const film = FILMS[i];
 
           const el = document.createElement('div');
@@ -1422,11 +1547,11 @@
       }
 
       function wrapRelative(diff) {
-        return ((((diff + 18) % 36) + 36) % 36) - 18;
+        return ((((diff + 1.5 * N) % (3 * N)) + 3 * N) % (3 * N)) - 1.5 * N;
       }
 
       function mod12(n) {
-        return ((n % 12) + 12) % 12;
+        return ((n % N) + N) % N;
       }
 
       /* ----------------------------------------------------------
@@ -1457,8 +1582,8 @@
           }
           const currentMod = mod12(Math.round(T));
           let diff = targetFilmIdx - currentMod;
-          if (diff > 6) diff -= 12;
-          if (diff < -6) diff += 12;
+          if (diff > N / 2) diff -= N;
+          if (diff < -N / 2) diff += N;
           T = Math.round(T) + diff;
         });
       });
@@ -1589,6 +1714,7 @@
         dTitle.textContent = film.title;
         dMeta.textContent = film.meta;
         dSyn.textContent = film.synopsis;
+        watchBtn.textContent = film.url ? 'OPEN PROJECT / 打开项目 ↗' : 'BACK TO SHELF / 返回';
 
         setPosterCrop(film.id);
         inkCircles.forEach((c) => c.setAttribute('r', '0'));
@@ -1715,7 +1841,11 @@
       }
 
       closeBtn.addEventListener('click', closeDetail);
-      watchBtn.addEventListener('click', closeDetail);
+      watchBtn.addEventListener('click', () => {
+        const f = FILMS[active];
+        if (f && f.url) window.open(f.url, '_blank', 'noopener');
+        else closeDetail();
+      });
 
       /* ----------------------------------------------------------
          10. MAIN REQUESTANIMATIONFRAME LOOP
@@ -1738,8 +1868,8 @@
         }
 
         // 2. Normalise loop if drifted beyond ±4 full loops (48 units)
-        if (Math.abs(s - 18) > 48) {
-          const shift = Math.round((s - 18) / 12) * 12;
+        if (Math.abs(s - 1.5 * N) > 4 * N) {
+          const shift = Math.round((s - 1.5 * N) / N) * N;
           s -= shift;
           T -= shift;
         }

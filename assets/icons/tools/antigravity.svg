@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="5" fill="#1A73E8"/><text x="12" y="12.6" text-anchor="middle" dominant-baseline="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="9.5" fill="#ffffff">AG</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <radialGradient id="agTop" cx="13.6" cy="3.0" r="11.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EA4335"/>
+      <stop offset="0.26" stop-color="#F4A223"/>
+      <stop offset="0.46" stop-color="#93C142"/>
+      <stop offset="0.64" stop-color="#46A3D6"/>
+      <stop offset="0.8" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#agTop)" d="M0.9 20.2C4.2 20.6 5.6 16.4 7 12.2C8.4 7.6 9.8 2.6 12 2.6C14.2 2.6 15.6 7.6 17 12.2C18.4 16.4 19.8 20.6 23.1 20.2C23.9 20.1 23.9 21.7 23 22C19.6 23.2 17.4 20.4 15.6 17.6C14.5 15.9 13.4 15.1 12 15.1C10.6 15.1 9.5 15.9 8.4 17.6C6.6 20.4 4.4 23.2 1 22C0.1 21.7 0.1 20.1 0.9 20.2Z"/>
+</svg>
